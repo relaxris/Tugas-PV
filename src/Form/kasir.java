@@ -358,7 +358,7 @@ private DefaultTableModel tabmode;
         }
         txtnomor.setText(d);
         txtalamat.setText(e);
-        txtcari.setText(f);
+        txtagama.setText(f);
         txtpassword.setText(g);
     }//GEN-LAST:event_tblkasirMouseClicked
 
