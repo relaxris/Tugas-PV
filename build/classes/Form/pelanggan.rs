@@ -1,0 +1,11 @@
+penjualan.pelanggan$4
+penjualan.pelanggan$3
+penjualan.pelanggan$2
+penjualan.pelanggan$1
+penjualan.pelanggan
+penjualan.pelanggan$9
+penjualan.pelanggan$8
+penjualan.pelanggan$7
+penjualan.pelanggan$6
+penjualan.pelanggan$5
+penjualan.pelanggan$10
