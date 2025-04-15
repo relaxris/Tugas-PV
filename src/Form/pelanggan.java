@@ -36,6 +36,7 @@ private DefaultTableModel tabmode;
         txttelp.setText("");
         txtalamat.setText("");
         txtcari.setText("");
+        buttonGroup1.clearSelection();
     }
     
     protected void datatable(){
@@ -71,6 +72,7 @@ private DefaultTableModel tabmode;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtid = new javax.swing.JTextField();
@@ -517,6 +519,7 @@ private DefaultTableModel tabmode;
     private javax.swing.JButton bkeluar;
     private javax.swing.JButton bsimpan;
     private javax.swing.JButton bubah;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
