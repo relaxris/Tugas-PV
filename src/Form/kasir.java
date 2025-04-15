@@ -90,7 +90,6 @@ private DefaultTableModel tabmode;
         jLabel6 = new javax.swing.JLabel();
         txtagama = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtalamat = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtpassword = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -104,6 +103,8 @@ private DefaultTableModel tabmode;
         jLabel9 = new javax.swing.JLabel();
         txtcari = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtalamat = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -225,7 +226,7 @@ private DefaultTableModel tabmode;
                 .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bcari)
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,6 +239,10 @@ private DefaultTableModel tabmode;
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        txtalamat.setColumns(20);
+        txtalamat.setRows(5);
+        jScrollPane2.setViewportView(txtalamat);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -246,30 +251,8 @@ private DefaultTableModel tabmode;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(rlaki)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rperempuan))
-                                    .addComponent(txtnm)
-                                    .addComponent(txtid)
-                                    .addComponent(txtnomor)
-                                    .addComponent(txtagama)
-                                    .addComponent(txtalamat)
-                                    .addComponent(txtpassword)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(bsimpan)
                                 .addGap(18, 18, 18)
@@ -279,11 +262,40 @@ private DefaultTableModel tabmode;
                                 .addGap(18, 18, 18)
                                 .addComponent(bbatal)
                                 .addGap(18, 18, 18)
-                                .addComponent(bkeluar))))
+                                .addComponent(bkeluar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel3)
+                                                .addComponent(jLabel2)
+                                                .addComponent(jLabel4)
+                                                .addComponent(jLabel7)
+                                                .addComponent(jLabel6))
+                                            .addGap(35, 35, 35))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addGap(18, 18, 18)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(63, 63, 63)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(rlaki)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rperempuan))
+                                    .addComponent(txtnm, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                                    .addComponent(txtid)
+                                    .addComponent(txtnomor)
+                                    .addComponent(txtagama)
+                                    .addComponent(jScrollPane2)
+                                    .addComponent(txtpassword)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
                         .addComponent(jLabel1)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,9 +316,9 @@ private DefaultTableModel tabmode;
                     .addComponent(rlaki)
                     .addComponent(rperempuan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(txtnomor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtnomor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -314,7 +326,7 @@ private DefaultTableModel tabmode;
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(txtalamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
@@ -328,8 +340,8 @@ private DefaultTableModel tabmode;
                     .addComponent(bkeluar))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -523,11 +535,12 @@ private DefaultTableModel tabmode;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton rlaki;
     private javax.swing.JRadioButton rperempuan;
     private javax.swing.JTable tblkasir;
     private javax.swing.JTextField txtagama;
-    private javax.swing.JTextField txtalamat;
+    private javax.swing.JTextArea txtalamat;
     private javax.swing.JTextField txtcari;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtnm;
