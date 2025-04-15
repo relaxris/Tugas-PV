@@ -121,6 +121,7 @@ private DefaultTableModel tabmode;
 
         jLabel4.setText("Jenis Kelamin");
 
+        buttonGroup1.add(rlaki);
         rlaki.setText("Laki-Laki");
         rlaki.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,6 +129,7 @@ private DefaultTableModel tabmode;
             }
         });
 
+        buttonGroup1.add(rperempuan);
         rperempuan.setText("Perempuan");
         rperempuan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
