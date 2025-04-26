@@ -291,7 +291,7 @@ private DefaultTableModel tabmode;
     }//GEN-LAST:event_bsimpanActionPerformed
 
     private void bubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubahActionPerformed
-        String sql = "update barang set kd_brg=?, nm_brg=?, jenis=?, hargabeli=?, hargajual=?, where kd_brg='"+txtkd.getText()+"'";
+        String sql = "update barang set kd_brg=?, nm_brg=?, jenis=?, hargabeli=?, hargajual=? where kd_brg='"+txtkd.getText()+"'";
         try{
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, txtnm.getText());

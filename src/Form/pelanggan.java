@@ -404,7 +404,7 @@ private DefaultTableModel tabmode;
         else if(rperempuan.isSelected()){
             jenis = "Perempuan";
         }
-        String sql = "update pelanggan set nmplg=?, jenis=?, telepon=?, alamat=?, where id='"+txtid.getText()+"'";
+        String sql = "update pelanggan set nmplg=?, jenis=?, telepon=?, alamat=? where id='"+txtid.getText()+"'";
         try{
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, txtnm.getText());
