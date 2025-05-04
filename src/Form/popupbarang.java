@@ -129,12 +129,12 @@ public nota brg = null;
 
     private void tblbrgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbrgMouseClicked
         int tabelBarang = tblbrg.getSelectedRow();
-        brg.id = tblbrg.getValueAt(tabelBarang, 0).toString();
-        brg.nama = tblbrg.getValueAt(tabelBarang, 1).toString();
-        brg.jenis = tblbrg.getValueAt(tabelBarang, 2).toString();
-        brg.telp = tblbrg.getValueAt(tabelBarang, 3).toString();
-        brg.almt = tblbrg.getValueAt(tabelBarang, 4).toString();
-        brg.itemTerpilih();
+        brg.kdbrg = tblbrg.getValueAt(tabelBarang, 0).toString();
+        brg.nmbrg = tblbrg.getValueAt(tabelBarang, 1).toString();
+        brg.jenisbrg = tblbrg.getValueAt(tabelBarang, 2).toString();
+        brg.hb = tblbrg.getValueAt(tabelBarang, 3).toString();
+        brg.hj = tblbrg.getValueAt(tabelBarang, 4).toString();
+        brg.itemTerpilihBrg();
         this.dispose();
     }//GEN-LAST:event_tblbrgMouseClicked
 
