@@ -32,6 +32,71 @@ private DefaultTableModel tabmode;
      */
     public nota() {
         initComponents();
+
+        kosong();
+        aktif();
+        autonumber();
+    }
+    
+    protected void nama(){
+        try {
+            String sql = "SELECT * FROM kasir where id_kasir='"+jLabel3.getText()+"'";
+            Statement stat = conn.createStatement();
+            ResultSet hasil = stat.executeQuery(sql);
+            
+            if(hasil.next()){
+                jLabel4.setText(hasil.getString("nama_kasir"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "data gagal dipanggil"+e);
+        }
+    }
+    
+    protected void aktif(){
+        txtqty.requestFocus();
+        Object[] Baris = {"KD Barang", "Nama", "Harga Beli", "Harga Jual", "QTY", "Total"};
+        tabmode = new DefaultTableModel(null, Baris);
+        tbltransaksi.setModel(tabmode);
+    }
+    
+    protected void kosong(){
+        txtid.setText("");
+        txtnm.setText("");
+        txtalmt.setText("");
+        txtkdbrg.setText("");
+        txtnmbrg.setText("");
+        txthb.setText("");
+        txthj.setText("");
+        txtqty.setText("");
+        txtttotal.setText("");
+    }
+    
+    protected void autonumber(){
+    try {
+        String sql = "SELECT id_nota FROM nota order by id_nota asc";
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        txtidnota.setText("IN0001");
+        while (rs.next()) {
+            String id_nota = rs.getString("id_nota").substring(2);
+            int AN = Integer.parseInt(id_nota) + 1;
+            String Nol = "";
+
+            if (AN < 10) {
+                Nol = "000";
+            } else if (AN < 100) {
+                Nol = "00";
+            } else if (AN < 1000) {
+                Nol = "0";
+            } else if (AN < 10000) {
+                Nol = "";
+            }
+
+            txtidnota.setText("IN" + Nol + AN);
+           }
+          } catch (Exception e) {
+         JOptionPane.showMessageDialog(null, "Auto Number Gagal " + e);
+        }
     }
     
     public void itemTerpilih (){
@@ -51,7 +116,16 @@ private DefaultTableModel tabmode;
         txthj.setText(hj);
         txtqty.requestFocus();
     }
-            
+    
+    public void hitung(){
+    int total = 0;
+    for (int i = 0; i < tbltransaksi.getRowCount(); i++) {
+        int amount = Integer.valueOf(tbltransaksi.getValueAt(i, 5).toString());
+        total += amount;
+    }
+    txtttotal.setText(Integer.toString(total));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,7 +143,7 @@ private DefaultTableModel tabmode;
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtidnota = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tglnota = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
@@ -93,18 +167,18 @@ private DefaultTableModel tabmode;
         txthb = new javax.swing.JTextField();
         txthj = new javax.swing.JTextField();
         txtqty = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        txttotal = new javax.swing.JTextField();
         bcaribrg = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbltransaksi = new javax.swing.JTable();
         btambah = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        bhapus = new javax.swing.JButton();
+        bsimpan = new javax.swing.JButton();
+        bbatal = new javax.swing.JButton();
+        bkeluar = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtttotal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +238,12 @@ private DefaultTableModel tabmode;
 
         jLabel18.setText("Total");
 
+        txtqty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtqtyActionPerformed(evt);
+            }
+        });
+
         bcaribrg.setText("Cari");
         bcaribrg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,7 +253,7 @@ private DefaultTableModel tabmode;
 
         jLabel19.setText("Transaksi");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbltransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -184,17 +264,42 @@ private DefaultTableModel tabmode;
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tbltransaksi);
 
         btambah.setText("Tambah");
+        btambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btambahActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Hapus");
+        bhapus.setText("Hapus");
+        bhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bhapusActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Simpan");
+        bsimpan.setText("Simpan");
+        bsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bsimpanActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Batal");
+        bbatal.setText("Batal");
+        bbatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bbatalActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Keluar");
+        bkeluar.setText("Keluar");
+        bkeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bkeluarActionPerformed(evt);
+            }
+        });
 
         jLabel20.setText("Total Harga");
 
@@ -211,17 +316,17 @@ private DefaultTableModel tabmode;
                             .addComponent(jLabel1))
                         .addComponent(jLabel19)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bsimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bbatal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bkeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(115, 115, 115)
                             .addComponent(jLabel20)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField2))
+                            .addComponent(txtttotal))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(bhapus)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 734, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +351,7 @@ private DefaultTableModel tabmode;
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtidnota, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(179, 179, 179)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +385,7 @@ private DefaultTableModel tabmode;
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(bcaribrg, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
                                         .addComponent(txtnmbrg, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField10)))))))
+                                        .addComponent(txttotal)))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -297,7 +402,7 @@ private DefaultTableModel tabmode;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtidnota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -335,7 +440,7 @@ private DefaultTableModel tabmode;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btambah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
@@ -343,14 +448,14 @@ private DefaultTableModel tabmode;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addComponent(bhapus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)
+                            .addComponent(bsimpan)
+                            .addComponent(bbatal)
+                            .addComponent(bkeluar)
                             .addComponent(jLabel20)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtttotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -406,6 +511,92 @@ private DefaultTableModel tabmode;
         Pbrg.setResizable(false);
     }//GEN-LAST:event_bcaribrgActionPerformed
 
+    private void txtqtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtqtyActionPerformed
+        int xhrgj = Integer.parseInt(txthj.getText());
+        int xqty = Integer.parseInt(txtqty.getText());
+        int xjml = xhrgj*xqty;
+        txttotal.setText(String.valueOf(xjml));
+    }//GEN-LAST:event_txtqtyActionPerformed
+
+    private void btambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btambahActionPerformed
+        try {
+        String kode = txtkdbrg.getText();
+        String nama = txtnmbrg.getText();
+        int hargab = Integer.parseInt(txthb.getText());
+        int hargaj = Integer.parseInt(txthj.getText());
+        int qty = Integer.parseInt(txtqty.getText());
+        int total = Integer.parseInt(txttotal.getText());
+
+        tabmode.addRow(new Object[]{kode, nama, hargab, hargaj, qty, total});
+        tbltransaksi.setModel(tabmode);
+        } catch (Exception e) {
+        System.out.println("Error : " + e);
+        }
+
+        txtkdbrg.setText("");
+        txtnmbrg.setText("");
+        txthb.setText("");
+        txthj.setText("");
+        txtqty.setText("");
+        txttotal.setText("");
+        hitung();
+    }//GEN-LAST:event_btambahActionPerformed
+
+    private void bhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapusActionPerformed
+        int index = tbltransaksi.getSelectedRow();
+        tabmode.removeRow(index);
+        tbltransaksi.setModel(tabmode);
+        hitung();
+    }//GEN-LAST:event_bhapusActionPerformed
+
+    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
+        dispose();
+    }//GEN-LAST:event_bkeluarActionPerformed
+
+    private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
+        kosong();
+        aktif();
+        autonumber();
+    }//GEN-LAST:event_bbatalActionPerformed
+
+    private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
+    String sql = "insert into nota values (?,?,?,?)";
+    String zsql = "insert into isi values (?,?,?,?,?)";
+    try {
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setString(1, txtidnota.getText());
+        stat.setString(2, tgl);
+        stat.setString(3, txtid.getText());
+        stat.setString(4, jLabel3.getText());
+
+        stat.executeUpdate();
+
+        int t = tbltransaksi.getRowCount();
+        for (int i = 0; i < t; i++) {
+            String xkd = tbltransaksi.getValueAt(i, 0).toString();
+            String xhb = tbltransaksi.getValueAt(i, 2).toString();
+            String xhj = tbltransaksi.getValueAt(i, 3).toString();
+            String xqty = tbltransaksi.getValueAt(i, 4).toString();
+
+            PreparedStatement stat2 = conn.prepareStatement(zsql);
+            stat2.setString(1, txtidnota.getText());
+            stat2.setString(2, xkd);
+            stat2.setString(3, xhb);
+            stat2.setString(4, xhj);
+            stat2.setString(5, xqty);
+
+            stat2.executeUpdate();
+        }
+        JOptionPane.showMessageDialog(null, "data berhasil disimpan");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "data gagal disimpan" + e);
+    }
+
+    kosong();
+    aktif();
+    autonumber();
+    }//GEN-LAST:event_bsimpanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -442,13 +633,13 @@ private DefaultTableModel tabmode;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bbatal;
     private javax.swing.JButton bcaribrg;
     private javax.swing.JButton bcariplgn;
+    private javax.swing.JButton bhapus;
+    private javax.swing.JButton bkeluar;
+    private javax.swing.JButton bsimpan;
     private javax.swing.JButton btambah;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -473,18 +664,18 @@ private DefaultTableModel tabmode;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tbltransaksi;
     private com.toedter.calendar.JDateChooser tglnota;
     private javax.swing.JTextArea txtalmt;
     private javax.swing.JTextField txthb;
     private javax.swing.JTextField txthj;
     private javax.swing.JTextField txtid;
+    private javax.swing.JTextField txtidnota;
     private javax.swing.JTextField txtkdbrg;
     private javax.swing.JTextField txtnm;
     private javax.swing.JTextField txtnmbrg;
     private javax.swing.JTextField txtqty;
+    private javax.swing.JTextField txttotal;
+    private javax.swing.JTextField txtttotal;
     // End of variables declaration//GEN-END:variables
 }
