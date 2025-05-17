@@ -16,7 +16,11 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;    
 /**
  *
  * @author user
@@ -126,6 +130,18 @@ private DefaultTableModel tabmode;
         total += amount;
     }
     txtttotal.setText(Integer.toString(total));
+    }
+    
+    public void cetak (){
+        try {
+        String path = "./src/nota.jasper";  // letak penyimpanan ireport
+        HashMap parameter = new HashMap();
+        parameter.put("id_nota", txtidnota.getText());
+        JasperPrint print = JasperFillManager.fillReport(path, parameter, conn);
+        JasperViewer.viewReport(print, false);
+        }catch (Exception ex) {
+        JOptionPane.showMessageDialog(rootPane, "Dokumen Tidak Ada " + ex);
+        }
     }
     
     /**
@@ -589,6 +605,7 @@ private DefaultTableModel tabmode;
             stat2.executeUpdate();
         }
         JOptionPane.showMessageDialog(null, "data berhasil disimpan");
+        cetak();
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "data gagal disimpan" + e);
     }
