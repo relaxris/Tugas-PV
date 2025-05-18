@@ -166,7 +166,7 @@ nota.id_nota=$P{id_nota}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[QYT]]></text>
+				<text><![CDATA[QTY]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="359" y="16" width="44" height="20" uuid="df1104af-c912-4561-af5a-99862c4263bc"/>
